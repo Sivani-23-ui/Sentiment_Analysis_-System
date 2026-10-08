@@ -1,0 +1,59 @@
+{
+  "model": "naive_bayes",
+  "title": "Naive Bayes",
+  "accuracy": 0.7591950034698126,
+  "macro_f1": 0.6533472594582315,
+  "weighted_f1": 0.7366086310712464,
+  "f1_negative": 0.8508424182358771,
+  "per_class": {
+    "negative": {
+      "precision": 0.7730751913552454,
+      "recall": 0.9460055096418732,
+      "f1": 0.8508424182358771,
+      "support": 1815
+    },
+    "neutral": {
+      "precision": 0.6418338108882522,
+      "recall": 0.367816091954023,
+      "f1": 0.46764091858037576,
+      "support": 609
+    },
+    "positive": {
+      "precision": 0.7916666666666666,
+      "recall": 0.5393013100436681,
+      "f1": 0.6415584415584416,
+      "support": 458
+    }
+  },
+  "latency_ms": 0.9324239997658879,
+  "train_seconds": 10.961034297943115,
+  "confusion_matrix": [
+    [
+      1717,
+      75,
+      23
+    ],
+    [
+      343,
+      224,
+      42
+    ],
+    [
+      161,
+      50,
+      247
+    ]
+  ],
+  "labels": [
+    "negative",
+    "neutral",
+    "positive"
+  ],
+  "type": "sklearn",
+  "model_file": "naive_bayes.joblib",
+  "best_params": {
+    "clf__alpha": "0.05"
+  },
+  "n_train": 11527,
+  "n_test": 2882
+}

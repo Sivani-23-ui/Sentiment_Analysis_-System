@@ -1,0 +1,13 @@
+{
+  "model": "logistic_regression",
+  "title": "Logistic Regression",
+  "type": "sklearn",
+  "model_file": "logistic_regression.joblib",
+  "labels": [
+    "negative",
+    "neutral",
+    "positive"
+  ],
+  "macro_f1": 0.7255462094150406,
+  "accuracy": 0.7765440666204025
+}

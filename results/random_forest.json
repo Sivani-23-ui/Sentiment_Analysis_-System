@@ -1,0 +1,60 @@
+{
+  "model": "random_forest",
+  "title": "Random Forest",
+  "accuracy": 0.7855655794587092,
+  "macro_f1": 0.7104100391579345,
+  "weighted_f1": 0.7769436148027022,
+  "f1_negative": 0.8668924199010158,
+  "per_class": {
+    "negative": {
+      "precision": 0.8221343873517787,
+      "recall": 0.9168044077134986,
+      "f1": 0.8668924199010158,
+      "support": 1815
+    },
+    "neutral": {
+      "precision": 0.6372745490981964,
+      "recall": 0.5221674876847291,
+      "f1": 0.5740072202166066,
+      "support": 609
+    },
+    "positive": {
+      "precision": 0.7855153203342619,
+      "recall": 0.6157205240174672,
+      "f1": 0.6903304773561811,
+      "support": 458
+    }
+  },
+  "latency_ms": 91.31143399979919,
+  "train_seconds": 122.70025897026062,
+  "confusion_matrix": [
+    [
+      1664,
+      120,
+      31
+    ],
+    [
+      245,
+      318,
+      46
+    ],
+    [
+      115,
+      61,
+      282
+    ]
+  ],
+  "labels": [
+    "negative",
+    "neutral",
+    "positive"
+  ],
+  "type": "sklearn",
+  "model_file": "random_forest.joblib",
+  "best_params": {
+    "clf__max_depth": "None",
+    "clf__n_estimators": "300"
+  },
+  "n_train": 11527,
+  "n_test": 2882
+}
