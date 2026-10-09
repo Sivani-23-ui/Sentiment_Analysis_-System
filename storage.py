@@ -23,15 +23,30 @@ def init_db():
 
 
 def insert_rows(rows):
-    """rows: list of dicts. Duplicates (same uid+keyword) are ignored. Returns number of new rows stored."""
+    """rows: list of dicts. Posts already stored (same uid + keyword) are skipped. Returns how many were really added."""
     if not rows:
         return 0
+    added = 0
     with _conn() as c:
-        before = c.total_changes
-        c.executemany(
-            "INSERT OR IGNORE INTO predictions (uid,keyword,source,text,url,sentiment,confidence,model,ts) "
-            "VALUES (:uid,:keyword,:source,:text,:url,:sentiment,:confidence,:model,:ts)", rows)
-        return c.total_changes - before
+        for r in rows:
+            cur = c.execute(
+                "INSERT OR IGNORE INTO predictions (uid,keyword,source,text,url,sentiment,confidence,model,ts) "
+                "VALUES (:uid,:keyword,:source,:text,:url,:sentiment,:confidence,:model,:ts)", r)
+            added += max(cur.rowcount, 0)
+    return added
+
+
+def existing_uids(keyword, uids):
+    """Which of these post ids are already stored for this keyword?"""
+    uids = list(uids)
+    found = set()
+    with _conn() as c:
+        for i in range(0, len(uids), 500):
+            chunk = uids[i:i + 500]
+            marks = ",".join("?" * len(chunk))
+            found.update(r[0] for r in c.execute(
+                f"SELECT uid FROM predictions WHERE keyword = ? AND uid IN ({marks})", [keyword, *chunk]))
+    return found
 
 
 def load_df(keyword=None, since_minutes=None):

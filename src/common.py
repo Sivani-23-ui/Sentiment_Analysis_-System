@@ -145,39 +145,5 @@ def run_experiment(name, title, clf, param_grid, args):
 
 
 # ----------------------------------------------------------------------------- loading / predicting
-class KerasWrapper:
-    """Gives the LSTM the same predict / predict_proba / classes_ interface as the sklearn models."""
-    def __init__(self, model, classes):
-        self.model, self.classes_ = model, np.array(classes)
-
-    def predict_proba(self, texts):
-        import tensorflow as tf
-        return self.model(tf.constant(list(texts)), training=False).numpy()
-
-    def predict(self, texts):
-        return self.classes_[self.predict_proba(texts).argmax(axis=1)]
-
-
-def load_best_model():
-    if not config.BEST_MODEL_INFO.exists():
-        raise FileNotFoundError("No best model yet. Train models and run:  python select_best.py")
-    info = json.loads(config.BEST_MODEL_INFO.read_text())
-    path = config.MODEL_DIR / info["model_file"]
-    if info["type"] == "keras":
-        import tensorflow as tf
-        return KerasWrapper(tf.keras.models.load_model(path), info["labels"]), info
-    return joblib.load(path), info
-
-
-def predict_texts(model, texts):
-    """Raw texts -> list of (label, confidence, {label: prob}). Cleaning is applied here, same as in training."""
-    texts = list(texts)
-    if not texts:
-        return []
-    proba = model.predict_proba([clean_text(t) for t in texts])
-    classes = list(model.classes_)
-    out = []
-    for row in proba:
-        k = int(np.argmax(row))
-        out.append((classes[k], float(row[k]), {c: float(v) for c, v in zip(classes, row)}))
-    return out
+# Prediction code lives in src/inference.py (so the web app does not need the training libraries).
+from src.inference import KerasWrapper, load_best_model, predict_texts  # noqa: E402,F401

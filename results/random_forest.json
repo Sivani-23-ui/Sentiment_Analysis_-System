@@ -25,8 +25,8 @@
       "support": 458
     }
   },
-  "latency_ms": 91.31143399979919,
-  "train_seconds": 122.70025897026062,
+  "latency_ms": 94.75333200010937,
+  "train_seconds": 126.28382754325867,
   "confusion_matrix": [
     [
       1664,
